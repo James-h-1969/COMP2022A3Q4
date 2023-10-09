@@ -1,4 +1,4 @@
-from COMP2022A3Q4.parser import parseTM, printTM
+from parser import parseTM, printTM
 
 if __name__ == '__main__':
     # read an PTM via stdin. See parser.py for details on the returned object

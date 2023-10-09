@@ -1,4 +1,4 @@
-from COMP2022A3Q4.parser import parseTM, printTM
+from parser import parseTM, printTM
 
 ZERO = "0"
 
