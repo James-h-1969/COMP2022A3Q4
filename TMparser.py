@@ -20,3 +20,7 @@ def parseInput():
     lines = [line for line in lines if len(line) > 0]
     return lines
 
+def printTM(lines):
+    for line in lines:
+        print(line)
+

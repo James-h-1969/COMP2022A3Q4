@@ -1,4 +1,4 @@
-from TMparser import parseTM, printTM
+from TMparser import parseInput, printTM
 
 ZERO = "0"
 
@@ -36,7 +36,7 @@ def get_to_a_zero(num:str, direction:str, final_state:str):
 
 if __name__ == '__main__':
     # read an TM via stdin. See parser.py for details on the returned object
-    lines = parseTM()
+    lines = parseInput()
     final_lines = []
     # Put your code here:
     counter = 10
