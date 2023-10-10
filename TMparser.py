@@ -22,5 +22,5 @@ def parseInput():
 
 def printTM(lines):
     for line in lines:
-        print(line)
+        print(line.join(" "))
 

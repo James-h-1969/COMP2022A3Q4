@@ -1,5 +1,9 @@
 from TMparser import parseInput, printTM
 
+"""
+cat "4.1.tm " | python problem_4_1.py
+"""
+
 ZERO = "0"
 
 def go_to_furthest(num:str, direction:str):
