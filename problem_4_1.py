@@ -8,7 +8,7 @@ ZERO = "0"
 STAR = "*"
 
 def go_to_furthest(num:str, direction:str):
-    if (direction == "L"):
+    if (direction == "L" or direction == 'l'):
         new_direction = "R"
     else:
         new_direction = "L"
@@ -54,6 +54,7 @@ if __name__ == '__main__':
         start_state, input_letter, output_letter, direction, output_state = line
         if input_letter == ZERO or input_letter == STAR:
             # follow direction
+            final_lines.append([start_state, input_letter, output_letter, direction, str(counter)])
             new_rules = get_to_a_zero(str(counter), direction, output_state)
             counter += 1
             for line in new_rules:
@@ -63,7 +64,8 @@ if __name__ == '__main__':
 
 
     # if you use the same data structure, you can use:
-    # print("Initial TM:")
-    # printTM(lines)
-    # print("Final PTM:")
+    print("Initial TM:")
+    printTM(lines)
+    print(" ")
+    print("Final PTM:")
     printTM(final_lines)
