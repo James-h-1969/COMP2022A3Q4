@@ -5,6 +5,7 @@ cat "4.1.tm " | python problem_4_1.py
 """
 
 ZERO = "0"
+STAR = "*"
 
 def go_to_furthest(num:str, direction:str):
     if (direction == "L"):
@@ -51,13 +52,18 @@ if __name__ == '__main__':
     counter = 10
     for line in lines:
         start_state, input_letter, output_letter, direction, output_state = line
-        if input_letter == ZERO:
+        if input_letter == ZERO or input_letter == STAR:
             # follow direction
             new_rules = get_to_a_zero(str(counter), direction, output_state)
             counter += 1
+            for line in new_rules:
+                final_lines.append(line)
         else:
             final_lines.append(line)
 
 
     # if you use the same data structure, you can use:
+    print("Initial TM:")
+    printTM(lines)
+    print("Final PTM:")
     printTM(final_lines)
