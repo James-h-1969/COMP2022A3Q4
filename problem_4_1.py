@@ -63,7 +63,7 @@ if __name__ == '__main__':
 
 
     # if you use the same data structure, you can use:
-    print("Initial TM:")
-    printTM(lines)
-    print("Final PTM:")
+    # print("Initial TM:")
+    # printTM(lines)
+    # print("Final PTM:")
     printTM(final_lines)
