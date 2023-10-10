@@ -37,6 +37,8 @@ def get_to_a_zero(num:str, direction:str, final_state:str):
         gets_to_end = go_to_furthest(num, direction)
         for line in gets_to_end:
             final_lines.append(line)
+    else:
+        final_lines.append([num, "_", "_", "L", "halt-reject"])
     find_zero = [num, "0", "0", "*", final_state]
     final_lines.append(find_zero)
     for line in keep_moving:
