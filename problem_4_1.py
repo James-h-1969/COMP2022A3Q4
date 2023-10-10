@@ -16,9 +16,11 @@ def go_to_furthest(num:str, direction:str):
     actual_end = [num+"a", "_", "_", direction, num+"b"]
     find_new_zero = get_to_a_zero(num+"b", direction, "-1")
     final_lines.append(to_go)
-    append1 = [final_lines.append(end) for end in to_end]
+    for line in to_end:
+        final_lines.append(line)
+    for line in find_new_zero:
+        final_lines.append(line)
     final_lines.append(actual_end)
-    append2 = [final_lines.append(final) for final in find_new_zero]
     return final_lines
 
 def get_to_a_zero(num:str, direction:str, final_state:str):
@@ -26,12 +28,15 @@ def get_to_a_zero(num:str, direction:str, final_state:str):
     keep_moving = [[num, "1", "1", direction, num], 
                    [num, "2", "2", direction, num], 
                    [num, "3", "3", direction, num], ]
-    if (final_state != -1):
+    if (final_state != "-1"):
         gets_to_end = go_to_furthest(num, direction)
-        append2 = [final_lines.append(line) for line in gets_to_end]
+        for line in gets_to_end:
+            final_lines.append(line)
     find_zero = [num, "0", "0", "*", final_state]
     final_lines.append(find_zero)
-    append1 = [final_lines.append(line) for line in keep_moving]
+    for line in keep_moving:
+        final_lines.append(line)
+    return final_lines
 
 
 if __name__ == '__main__':
@@ -51,4 +56,4 @@ if __name__ == '__main__':
 
 
     # if you use the same data structure, you can use:
-    printTM(lines)
+    printTM(final_lines)
