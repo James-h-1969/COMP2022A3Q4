@@ -1,0 +1,9 @@
+; PTM that accepts strings that start with zero and have no more zeros
+
+0 0 1 L 1
+0 * * * halt-reject
+1 * 2 R 2
+2 1 0 R 3
+3 * 1 L 4
+4 2 * * halt-accept
+4 * * * halt-reject
