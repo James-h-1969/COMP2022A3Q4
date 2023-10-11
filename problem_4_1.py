@@ -18,9 +18,14 @@ if __name__ == '__main__':
     for line in lines:
         start_state, input_letter, output_letter, direction, output_state = line
         if output_letter == ZERO or output_letter == STAR:
-            final_lines.append([start_state, input_letter, REPLACEMENT_LETTER, direction, output_state])
+            if output_letter == ZERO:
+                final_lines.append([start_state, input_letter, REPLACEMENT_LETTER, direction, output_state])
             if output_letter == STAR:
-                final_lines.append([start_state, input_letter, ONE, direction, output_state])
+                if input_letter == STAR:
+                    final_lines.append([start_state, ZERO, REPLACEMENT_LETTER, direction, output_state])
+                    final_lines.append([start_state, ONE, ONE, direction, output_state])
+                if input_letter == ZERO:
+                    final_lines.append([start_state, ZERO, REPLACEMENT_LETTER, direction, output_state])
         else:
             final_lines.append(line)
 
