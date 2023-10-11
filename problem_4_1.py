@@ -33,12 +33,12 @@ if __name__ == '__main__':
                 if input_letter == STAR:
                     if checkifExists(final_lines, start_state, ZERO):
                         final_lines.append([start_state, ZERO, REPLACEMENT_LETTER, direction, output_state])
+                        final_lines.append([start_state, REPLACEMENT_LETTER, REPLACEMENT_LETTER, direction, output_state])
                     if checkifExists(final_lines, start_state, ONE):
                         final_lines.append([start_state, ONE, ONE, direction, output_state])
-                    if checkifExists(final_lines, start_state, UNDERLINE):
-                        final_lines.append([start_state, UNDERLINE, UNDERLINE, direction, output_state])
                 if input_letter == ZERO:
                     final_lines.append([start_state, ZERO, REPLACEMENT_LETTER, direction, output_state])
+                    final_lines.append([start_state, REPLACEMENT_LETTER, REPLACEMENT_LETTER, direction, output_state])
         else:
             final_lines.append(line)
 
