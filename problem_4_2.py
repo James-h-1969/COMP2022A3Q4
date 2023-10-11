@@ -7,6 +7,8 @@ TO EXECUTE THE PROGRAM:
 
 ZERO = "0"
 ONE = "1"
+TWO = "2"
+THREE = "3"
 UNDERLINE = "_"
 STAR = "*"
 SUBSTITUTE_LETTER = "Z"
@@ -22,29 +24,40 @@ def checkifExists(lines, start_state, input):
             return False
     return True
 
-
+"""
+go_to_furthest: a function that gets the head to the other side of the string
+@params: num: starting state, direction -> direction it was travelling in, final_state -> 
+the end state, output_letter -> final letter
+@ returns: lines to make this happen
+"""
 def go_to_furthest(num:str, direction:str, final_state:str, output_letter:str):
+    # figure out the reverse direction
     if (direction == "L" or direction == 'l'):
         new_direction = "R"
     else:
         new_direction = "L"
+
     final_lines = []
-    to_go = [num, "_", "_", new_direction, num+"a"]
-    to_end = [[num+"a", "0", "0", new_direction, num+"a"],
-              [num+"a", "1", "1", new_direction, num+"a"],
-              [num+"a", "2", "2", new_direction, num+"a"],
-              [num+"a", "3", "3", new_direction, num+"a"],
-              [num+"a", SUBSTITUTE_LETTER, SUBSTITUTE_LETTER, new_direction, num+"a"],]
-    actual_end = [num+"a", "_", "_", direction, num+"b"]
+
+    final_lines.append([num, UNDERLINE, UNDERLINE, new_direction, num+"a"]) # entry into state
+
+    final_lines.append([num+"a", UNDERLINE, UNDERLINE, direction, num+"b"]) # exit of state
+
+    final_lines.append([num+"a", STAR, STAR, new_direction, num+"a"]) # move in direction
+    
+    # find the next zero at the new end
     find_new_zero = get_to_a_zero(num+"b", direction, final_state, 1, output_letter)
-    final_lines.append(to_go)
-    for line in to_end:
-        final_lines.append(line)
     for line in find_new_zero:
         final_lines.append(line)
-    final_lines.append(actual_end)
+    
     return final_lines
 
+"""
+get_to_a_zero: function that moves until it finds a zero
+@params: num -> initial state, direction -> direction it is moving, final_state -> where it 
+ends up, depth: to stop recursively checking forever, output_letter -> as implied
+@returns: lines to make this happen
+"""
 def get_to_a_zero(num:str, direction:str, final_state:str, depth:int, output_letter:str):
     final_lines = []
     find_one = [[num, "1", "1", direction, num], 
@@ -62,8 +75,7 @@ def get_to_a_zero(num:str, direction:str, final_state:str, depth:int, output_let
     final_lines.append([num, ZERO, ZERO, "*", final_state])
     return final_lines
 
-
-if __name__ == '__main__':
+def main():
     # read an TM via stdin. See parser.py for details on the returned object
     lines = parseInput()
     final_lines = []
@@ -79,9 +91,6 @@ if __name__ == '__main__':
                 counter += 1
                 for line in new_rules:
                     final_lines.append(line)
-                
-            
-          #############  HAPPY ABOVE  ############  
             else:
                 if checkifExists(final_lines, start_state, ZERO):
                     final_lines.append([start_state, ZERO, SUBSTITUTE_LETTER, direction, str(counter)])
@@ -100,4 +109,5 @@ if __name__ == '__main__':
 
     printTM(final_lines)
 
-#  2 1 0 R 3
+if __name__ == '__main__':
+    main()
