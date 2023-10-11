@@ -32,6 +32,8 @@ def go_to_furthest(num:str, direction:str, final_state:str, output_letter:str):
     to_go = [num, "_", "_", new_direction, num+"a"]
     to_end = [[num+"a", "0", "0", new_direction, num+"a"],
               [num+"a", "1", "1", new_direction, num+"a"],
+              [num+"a", "2", "2", new_direction, num+"a"],
+              [num+"a", "3", "3", new_direction, num+"a"],
               [num+"a", SUBSTITUTE_LETTER, SUBSTITUTE_LETTER, new_direction, num+"a"],]
     actual_end = [num+"a", "_", "_", direction, num+"b"]
     find_new_zero = get_to_a_zero(num+"b", direction, final_state, 1, output_letter)
@@ -45,7 +47,12 @@ def go_to_furthest(num:str, direction:str, final_state:str, output_letter:str):
 
 def get_to_a_zero(num:str, direction:str, final_state:str, depth:int, output_letter:str):
     final_lines = []
-    final_lines.append([num, "1", "1", direction, num])
+    find_one = [[num, "1", "1", direction, num], 
+                [num, "2", "2", direction, num],
+                [num, "3", "3", direction, num]]
+    for line in find_one:
+        final_lines.append(line)
+    # final_lines.append([num, SUBSTITUTE_LETTER, SUBSTITUTE_LETTER, direction, num])
     if (depth == 0):
         gets_to_end = go_to_furthest(num, direction, final_state, output_letter)
         for line in gets_to_end:
@@ -64,24 +71,26 @@ if __name__ == '__main__':
     counter = 10
     for line in lines:
         start_state, input_letter, output_letter, direction, output_state = line
-        if input_letter == ZERO or input_letter == STAR:
-            
+        if output_letter == ZERO or output_letter == STAR and output_state != "halt-reject" and output_state != "halt-accept":
             # follow direction
-            if input_letter == ZERO:            
-                final_lines.append([start_state, ZERO, SUBSTITUTE_LETTER, direction, str(counter)])
+            if output_letter == ZERO:            
+                final_lines.append([start_state, input_letter, SUBSTITUTE_LETTER, direction, str(counter)])
                 new_rules = get_to_a_zero(str(counter), direction, output_state, 0, output_letter)
                 counter += 1
                 for line in new_rules:
                     final_lines.append(line)
+                
             
           #############  HAPPY ABOVE  ############  
             else:
                 if checkifExists(final_lines, start_state, ZERO):
-                    final_lines.append([start_state, ZERO, ZERO, direction, str(counter)])
+                    final_lines.append([start_state, ZERO, SUBSTITUTE_LETTER, direction, str(counter)])
                 if checkifExists(final_lines, start_state, ONE):
                     final_lines.append([start_state, ONE, ONE, direction, output_state])
                 if checkifExists(final_lines, start_state, UNDERLINE):
-                    final_lines.append([start_state, UNDERLINE, UNDERLINE, direction, output_state])
+                    final_lines.append([start_state, UNDERLINE, output_letter, direction, output_state])
+                if checkifExists(final_lines, start_state, SUBSTITUTE_LETTER):
+                    final_lines.append([start_state, SUBSTITUTE_LETTER, SUBSTITUTE_LETTER, direction, str(counter)])
                 new_rules = get_to_a_zero(str(counter), direction, output_state, 0, output_letter)
                 counter += 1
                 for line in new_rules:
@@ -91,3 +100,4 @@ if __name__ == '__main__':
 
     printTM(final_lines)
 
+#  2 1 0 R 3
