@@ -28,6 +28,11 @@ if __name__ == '__main__':
                     final_lines.append([start_state, ZERO, REPLACEMENT_LETTER, direction, output_state])
         else:
             final_lines.append(line)
+        if input_letter == ZERO:
+            if output_letter == ZERO:
+                final_lines.append([start_state, REPLACEMENT_LETTER, REPLACEMENT_LETTER, direction, output_state])
+            else:
+                final_lines.append([start_state, REPLACEMENT_LETTER, output_letter, direction, output_state])
 
     
     # print("Initial TM:")
