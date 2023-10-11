@@ -80,6 +80,8 @@ if __name__ == '__main__':
                     final_lines.append([start_state, ZERO, ZERO, direction, str(counter)])
                 if checkifExists(final_lines, start_state, ONE):
                     final_lines.append([start_state, ONE, ONE, direction, output_state])
+                if checkifExists(final_lines, start_state, UNDERLINE):
+                    final_lines.append([start_state, UNDERLINE, UNDERLINE, direction, output_state])
                 new_rules = get_to_a_zero(str(counter), direction, output_state, 0, output_letter)
                 counter += 1
                 for line in new_rules:
